@@ -6,11 +6,11 @@ namespace Networking
 {
 	public class InitNetworkRunner : MonoBehaviour
 	{
-		[SerializeField] private NetworkRunner _networkRunnerPrefab = null;
-		[SerializeField] private TMP_InputField _nickName = null;
-		[SerializeField] private TextMeshProUGUI _nickNamePlaceholder = null;
-		[SerializeField] private TMP_InputField _roomName = null;
-		[SerializeField] private SceneRef _gameSceneName;
+		[SerializeField] private NetworkRunner _networkRunnerPrefab;
+		[SerializeField] private TMP_InputField _nickName;
+		[SerializeField] private TextMeshProUGUI _nickNamePlaceholder;
+		[SerializeField] private string _roomName;
+		[SerializeField] private string _gameSceneName;
     
 		private NetworkRunner _runnerInstance = null;
     
@@ -19,7 +19,7 @@ namespace Networking
 			var gameArgs = new StartGameArgs()
 			{
 				GameMode = GameMode.AutoHostOrClient,
-				SessionName = _roomName.text,
+				SessionName = _roomName,
 				//ObjectProvider = _runnerInstance.GetComponent<NetworkObjectPoolDefault>(),
 			};
 			StartGame(gameArgs);
