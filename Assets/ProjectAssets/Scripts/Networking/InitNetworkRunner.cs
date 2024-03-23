@@ -32,15 +32,15 @@ namespace Networking
 			{
 				_runnerInstance = Instantiate(_networkRunnerPrefab);
 			}
-        
+
 			_runnerInstance.ProvideInput = true;
-        
+
 			await _runnerInstance.StartGame(gameArgs);
 
 			if (_runnerInstance.IsServer)
 			{
 				_runnerInstance.LoadScene(_gameSceneName);
 			}
-		}
+        }
 	}
 }
