@@ -1,4 +1,5 @@
-﻿using Zenject;
+﻿using Game.Abstractions;
+using Zenject;
 
 namespace MonoInstallers
 {
@@ -6,7 +7,7 @@ namespace MonoInstallers
 	{
 		public override void InstallBindings()
 		{
-			
+			Container.BindInterfacesTo<IGameStateService>().AsSingle();
 		}
 	}
 }

@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using Fusion;
+using Game.Abstractions;
 using UnityEngine;
 
 namespace Game
 {
-	public class PlanetSpawner : NetworkBehaviour
+	public class PlanetSpawner : NetworkBehaviour, IPlanetSpawner
 	{
 		[SerializeField] private NetworkPrefabRef _planet;
 
@@ -13,7 +14,7 @@ namespace Game
 
 		private List<NetworkId> _planets = new();
 
-		public override void Spawned()
+		public void SpawnPlanets(int playerCount)
 		{
 			if (Object.HasStateAuthority == false) return;
 			
@@ -30,11 +31,11 @@ namespace Game
 
 			if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
 			{
-				position = new Vector3(Mathf.Sign(direction.x) * _screenBoundaryX, 0, direction.y * _screenBoundaryY);
+				position = new Vector3(Mathf.Sign(direction.x) * _screenBoundaryX, direction.y * _screenBoundaryY, 0);
 			}
 			else
 			{
-				position = new Vector3(direction.x * _screenBoundaryX, 0, Mathf.Sign(direction.y) * _screenBoundaryY);
+				position = new Vector3(direction.x * _screenBoundaryX, Mathf.Sign(direction.y) * _screenBoundaryY, 0);
 			}
 
 			position -= position.normalized * 0.1f;
