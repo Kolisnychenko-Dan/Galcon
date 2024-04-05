@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Fusion;
 using Game.Abstractions;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Game
 {
@@ -13,6 +15,13 @@ namespace Game
 		private float _screenBoundaryY = 0.0f;
 
 		private List<NetworkId> _planets = new();
+
+		public override void Spawned()
+		{
+			base.Spawned();
+			
+			SpawnPlanets(0);
+		}
 
 		public void SpawnPlanets(int playerCount)
 		{

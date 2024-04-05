@@ -11,7 +11,7 @@ namespace MonoInstallers
 		
 		public override void InstallBindings()
 		{
-			Container.BindInterfacesTo<IPlanetSpawner>().FromInstance(_planetSpawner).AsSingle();
+			Container.BindInterfacesTo<PlanetSpawner>().FromInstance(_planetSpawner).AsSingle();
 		}
 	}
 }

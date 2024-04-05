@@ -28,6 +28,7 @@ namespace Game.Abstractions
 		StartGame,
 		EndGame,
 		Restart,
-		GoToLobby
+		GoToLobby,
+		GoBack,
 	}
 }
