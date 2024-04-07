@@ -185,7 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4a29858b5fa4a9780f5f991e199a228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _planetSpawner: {fileID: 1407664974}
+  _mapSpawner: {fileID: 1407664974}
 --- !u!114 &180916002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,7 +363,7 @@ GameObject:
   - component: {fileID: 1407664974}
   - component: {fileID: 1407664973}
   m_Layer: 0
-  m_Name: PlanetSpawner
+  m_Name: MapSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -415,7 +415,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _planet:
-    RawGuidValue: 594d8cd77342ea54a858d477ebae7fac
+    RawGuidValue: 87863a2a212f3bf4b98980f3f240802d
 --- !u!1 &1604166469
 GameObject:
   m_ObjectHideFlags: 0

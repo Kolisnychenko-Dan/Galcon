@@ -1,17 +1,18 @@
 ﻿using Game;
 using Game.Abstractions;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace MonoInstallers
 {
 	public class GameMonoInstaller : MonoInstaller
 	{
-		[SerializeField] private PlanetSpawner _planetSpawner;
+		[SerializeField] private MapSpawner _mapSpawner;
 		
 		public override void InstallBindings()
 		{
-			Container.BindInterfacesTo<PlanetSpawner>().FromInstance(_planetSpawner).AsSingle();
+			Container.BindInterfacesTo<MapSpawner>().FromInstance(_mapSpawner).AsSingle();
 		}
 	}
 }
