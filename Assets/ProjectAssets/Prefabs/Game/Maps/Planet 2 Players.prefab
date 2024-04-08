@@ -65,6 +65,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8869087854309769414}
     m_Modifications:
+    - target: {fileID: 3353140625178308778, guid: 594d8cd77342ea54a858d477ebae7fac, type: 3}
+      propertyPath: _ownerId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3353140625178308778, guid: 594d8cd77342ea54a858d477ebae7fac, type: 3}
+      propertyPath: _startingValue
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3353140625178308778, guid: 594d8cd77342ea54a858d477ebae7fac, type: 3}
+      propertyPath: _startingOwnerId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3536808642866640330, guid: 594d8cd77342ea54a858d477ebae7fac, type: 3}
       propertyPath: SortKey
       value: 606830063
@@ -158,6 +170,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8869087854309769414}
     m_Modifications:
+    - target: {fileID: 3353140625178308778, guid: 594d8cd77342ea54a858d477ebae7fac, type: 3}
+      propertyPath: _ownerId
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 3536808642866640330, guid: 594d8cd77342ea54a858d477ebae7fac, type: 3}
       propertyPath: SortKey
       value: 2056699210
@@ -344,10 +360,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8869087854309769414}
     m_Modifications:
+    - target: {fileID: 3353140625178308778, guid: 594d8cd77342ea54a858d477ebae7fac, type: 3}
+      propertyPath: _ownerId
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3353140625178308778, guid: 594d8cd77342ea54a858d477ebae7fac, type: 3}
+      propertyPath: _startingValue
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3353140625178308778, guid: 594d8cd77342ea54a858d477ebae7fac, type: 3}
+      propertyPath: _startingOwnerId
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3536808642866640330, guid: 594d8cd77342ea54a858d477ebae7fac, type: 3}
       propertyPath: SortKey
       value: 2960697699
       objectReference: {fileID: 0}
+    - target: {fileID: 3536808642866640330, guid: 594d8cd77342ea54a858d477ebae7fac, type: 3}
+      propertyPath: NetworkedBehaviours.Array.data[1]
+      value: 
+      objectReference: {fileID: 8578572418970033029}
     - target: {fileID: 5065661764684109816, guid: 594d8cd77342ea54a858d477ebae7fac, type: 3}
       propertyPath: m_Name
       value: Planet
@@ -427,5 +459,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8578572418970033029 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3353140625178308778, guid: 594d8cd77342ea54a858d477ebae7fac, type: 3}
+  m_PrefabInstance: {fileID: 6450713275482188591}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 418cdb9050794ba5a2a3854895cca2d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

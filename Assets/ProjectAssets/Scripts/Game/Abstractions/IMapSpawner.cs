@@ -1,6 +1,6 @@
 ﻿namespace Game.Abstractions
 {
-	public interface IPlanetSpawner
+	public interface IMapSpawner
 	{
 		void SpawnPlanets(int playerCount);
 	}

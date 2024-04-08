@@ -1,15 +1,17 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Fusion;
 using Game.Abstractions;
 using UnityEngine;
+using Zenject;
 
 namespace Game
 {
-	public class MapSpawner : NetworkBehaviour, IPlanetSpawner
+	public class MapSpawner : NetworkBehaviour, IMapSpawner
 	{
 		[SerializeField] private NetworkPrefabRef _planet;
 		
-		private List<NetworkId> _planets = new();
+		private List<Planet> _planets = new();
 
 		public override void Spawned()
 		{
@@ -20,17 +22,18 @@ namespace Game
 
 		public void SpawnPlanets(int playerCount)
 		{
-			if (Object.HasStateAuthority == false) return;
-			
-			SpawnPlanet();
+			if (Runner.IsServer)
+			{
+				SpawnPlanet();
+			}
 		}
 		
 		private void SpawnPlanet()
 		{
-			var planet = Runner.Spawn(_planet, null, null, PlayerRef.None,
+			var map = Runner.Spawn(_planet, null, null, PlayerRef.None,
 				onBeforeSpawned: (_,_) => {});
 
-			_planets.Add(planet.Id);
+			_planets = map.gameObject.GetComponentsInChildren<Planet>().ToList();
 		}
 	}
 }
