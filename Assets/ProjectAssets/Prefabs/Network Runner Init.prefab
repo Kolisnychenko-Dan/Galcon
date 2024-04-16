@@ -45,6 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _networkRunnerPrefab: {fileID: 772090143359593511, guid: f44e14eb414397546b5f66331183823b, type: 3}
-  _nickName: {fileID: 0}
-  _nickNamePlaceholder: {fileID: 0}
+  _networkLobbyServicePrefab: {fileID: 6228424962836843840, guid: 59b717a8d57c4d34eb411d29c6e9916f, type: 3}
   _roomName: Booba

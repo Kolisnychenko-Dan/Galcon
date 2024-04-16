@@ -4,6 +4,8 @@ using UnityEngine;
 public static class Constants
 {
 	public const string GameSceneName = "Game";
+	public const string StartSceneName = "StartScene";
+	public const string UIScene = "PersistantUI";
 
 	public static IReadOnlyDictionary<int, Color32> PlayerIdToColorMap = new Dictionary<int, Color32>
 	{

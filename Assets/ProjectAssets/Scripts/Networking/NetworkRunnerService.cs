@@ -11,16 +11,20 @@ namespace Networking
 	public class NetworkRunnerService : MonoBehaviour, INetworkRunnerService
 	{
 		[SerializeField] private NetworkRunner _networkRunnerPrefab;
-		[SerializeField] private string _roomName;
+		[SerializeField] private NetworkLobbyService _networkLobbyServicePrefab;
     
 		private NetworkRunner _runnerInstance = null;
+		private NetworkLobbyService _networkLobbyService;
 
 		[Inject] private IGameStateService _gameStateService;
-    
+		[Inject] private DiContainer _diContainer;
+
 		public NetworkRunner GetCurrentNetworkRunner()
 		{
 			return _runnerInstance;
 		}
+
+		public NetworkLobbyService LobbyService => _networkLobbyService;
 
 		public UniTask LoadNetworkScene(string sceneName, LoadSceneMode loadSceneMode)
 		{
@@ -37,7 +41,7 @@ namespace Networking
 			var gameArgs = new StartGameArgs()
 			{
 				GameMode = GameMode.AutoHostOrClient,
-				SessionName = _roomName,
+				SessionName = "Booba",
 				//ObjectProvider = _runnerInstance.GetComponent<NetworkObjectPoolDefault>(),
 			};
 			StartGame(gameArgs);
@@ -49,13 +53,17 @@ namespace Networking
 			if (_runnerInstance == null)
 			{
 				_runnerInstance = Instantiate(_networkRunnerPrefab);
+                
+				var lobbyService = _runnerInstance.Spawn(_networkLobbyServicePrefab, null, null, PlayerRef.None,
+					onBeforeSpawned: (_,_) => {});
+
+				_networkLobbyService = lobbyService.GetComponent<NetworkLobbyService>();
+				_diContainer.Inject(_networkLobbyService);
 			}
 
 			_runnerInstance.ProvideInput = true;
 
 			await _runnerInstance.StartGame(gameArgs);
-
-			_gameStateService.ChangeGameState(Trigger.StartGame);
         }
 	}
 }

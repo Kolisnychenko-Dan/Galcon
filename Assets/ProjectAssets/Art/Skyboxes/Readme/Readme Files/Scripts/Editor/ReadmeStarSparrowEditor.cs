@@ -55,7 +55,6 @@ public class ReadmeStarSparrowEditor : UnityEditor.Editor
 		}
 		else
 		{
-			Debug.Log("Couldn't find a readme");
 			return null;
 		}
 	}

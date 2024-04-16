@@ -13,6 +13,8 @@ namespace Game
 		
 		private List<Planet> _planets = new();
 
+		[Inject] private DiContainer _diContainer;
+		
 		public override void Spawned()
 		{
 			base.Spawned();
@@ -34,6 +36,10 @@ namespace Game
 				onBeforeSpawned: (_,_) => {});
 
 			_planets = map.gameObject.GetComponentsInChildren<Planet>().ToList();
+			foreach (var planet in _planets)
+			{
+				_diContainer.Inject(planet);
+			}
 		}
 	}
 }

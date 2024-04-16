@@ -1,8 +1,10 @@
 ﻿using System;
 using Fusion;
+using Networking.Abstractions;
 using TMPro;
 using UniRx;
 using UnityEngine;
+using Zenject;
 
 namespace Game
 {
@@ -19,7 +21,8 @@ namespace Game
 		
 		[Networked] public float Value { get; private set; }
 		[Networked] public int OwnerId { get; private set; }
-		
+
+		//[Inject] private ILobbyService _lobbyService;
 		
 		public override void Spawned()
 		{

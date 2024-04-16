@@ -15,8 +15,8 @@ namespace UI
 		[SerializeField] private Button _settingsButton;
 		[SerializeField] private Button _aboutButton;
 		
-		// [Inject] private IPopupService _popupService;
-		// [Inject] private IGameStateService _gameStateService;
+		//[Inject] private IPopupService _popupService;
+		[Inject] private IGameStateService _gameStateService;
 		[Inject] private NetworkRunnerService _runnerService;
 
 		private void Start()
@@ -40,7 +40,9 @@ namespace UI
 
 		private void OnPlayButtonClicked()
 		{	
+			_gameStateService.ChangeGameState(Trigger.GoToLobby);
 			_runnerService.GameStart();
+			_runnerService.LobbyService.Initialize(new LobbyInfo {PlayerCount = 2});
 		}
 	}
 }
