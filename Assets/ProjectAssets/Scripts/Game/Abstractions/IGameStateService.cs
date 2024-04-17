@@ -15,7 +15,6 @@ namespace Game.Abstractions
 	{
 		Start,
 		Login,
-		Lobby,
 		WaitingPlayers,
 		GameRunning,
 		Ending

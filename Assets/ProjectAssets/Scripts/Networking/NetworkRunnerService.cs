@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Fusion;
 using Game.Abstractions;
 using Networking.Abstractions;
@@ -36,34 +37,40 @@ namespace Networking
 			return UniTask.CompletedTask;
 		}
 
-		public void GameStart()
-		{
-			var gameArgs = new StartGameArgs()
-			{
-				GameMode = GameMode.AutoHostOrClient,
-				SessionName = "Booba",
-				//ObjectProvider = _runnerInstance.GetComponent<NetworkObjectPoolDefault>(),
-			};
-			StartGame(gameArgs);
-		}
+		// public void GameStart()
+		// {
+		// 	var gameArgs = new StartGameArgs()
+		// 	{
+		// 		GameMode = GameMode.AutoHostOrClient,
+		// 		SessionName = "Booba",
+		// 		//ObjectProvider = _runnerInstance.GetComponent<NetworkObjectPoolDefault>(),
+		// 	};
+		// 	StartGame(gameArgs);
+		// }
 
-		private async void StartGame(StartGameArgs gameArgs)
+		public async Task<StartGameResult> StartGame(StartGameArgs gameArgs)
 		{
 			_runnerInstance = FindObjectOfType<NetworkRunner>();
 			if (_runnerInstance == null)
 			{
 				_runnerInstance = Instantiate(_networkRunnerPrefab);
-                
+			}
+
+			_runnerInstance.ProvideInput = true;
+
+			var result = await _runnerInstance.StartGame(gameArgs);
+
+			if (result.Ok)
+			{
 				var lobbyService = _runnerInstance.Spawn(_networkLobbyServicePrefab, null, null, PlayerRef.None,
 					onBeforeSpawned: (_,_) => {});
 
 				_networkLobbyService = lobbyService.GetComponent<NetworkLobbyService>();
 				_diContainer.Inject(_networkLobbyService);
+				_networkLobbyService.Initialize(new LobbyInfo {PlayerCount = gameArgs.PlayerCount.Value});
 			}
 
-			_runnerInstance.ProvideInput = true;
-
-			await _runnerInstance.StartGame(gameArgs);
-        }
+			return result;
+		}
 	}
 }

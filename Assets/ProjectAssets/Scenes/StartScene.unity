@@ -621,6 +621,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 217
       objectReference: {fileID: 0}
+    - target: {fileID: 5952325696276667305, guid: 4a84a98e6d625d4408e4e48e83cc3f3b, type: 3}
+      propertyPath: _joinLobbyPopupPrefab
+      value: 
+      objectReference: {fileID: 6340288535626764338, guid: 0d615a9866fcccd43b7ca61c0f8f24bc, type: 3}
     - target: {fileID: 6898533659070569411, guid: 4a84a98e6d625d4408e4e48e83cc3f3b, type: 3}
       propertyPath: m_SizeDelta.x
       value: 94

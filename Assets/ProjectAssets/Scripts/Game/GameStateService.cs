@@ -8,6 +8,7 @@ using ProjectAssets.Scripts;
 using Stateless;
 using Tools;
 using UniRx;
+using UnityEngine.Device;
 using UnityEngine.SceneManagement;
 using Zenject;
 
@@ -27,32 +28,28 @@ namespace Game
 			StateMachine.FireAsync(trigger);
 		}
 
-		public override void Initialize()
+		public override async void Initialize()
 		{
 			base.Initialize();
 
+			Application.targetFrameRate = 60;
+			
 			ConfigureStateMachine();
 
 			StateMachine.OnTransitionCompleted(transition => _onStateChanged.OnNext(transition));
 			
-			LoadSceneAsync(Constants.UIScene, LoadSceneMode.Additive);
+			await LoadSceneAsync(Constants.UIScene, LoadSceneMode.Additive);
 		}
 
 		private void ConfigureStateMachine()
 		{
 			StateMachine.Configure(State.Start)
 				.Permit(Trigger.OpenLogin, State.Login)
-				.Permit(Trigger.GoToLobby, State.Lobby);
-			
-			StateMachine.Configure(State.Login)
-				.Permit(Trigger.GoToLobby, State.Lobby)
-				.Permit(Trigger.GoBack, State.Start);
-
-			StateMachine.Configure(State.Lobby)
 				.Permit(Trigger.ConnectToRoom, State.WaitingPlayers);
 
 			StateMachine.Configure(State.WaitingPlayers)
 				.Permit(Trigger.StartGame, State.GameRunning)
+				.OnEntryFromAsync(Trigger.ConnectToRoom, () => UnloadSceneAsync(Constants.StartSceneName))
 				.OnEntry(() =>
 				{
 					EventManager.Instance.EmitEvent(EventNames.ToggleLobbyWaitScreen, true);

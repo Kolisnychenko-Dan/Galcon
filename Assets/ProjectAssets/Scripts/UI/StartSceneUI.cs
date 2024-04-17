@@ -1,4 +1,5 @@
 ﻿using Game.Abstractions;
+using MonoInstallers;
 using Networking;
 using UI.Abstractions;
 using UniRx;
@@ -14,10 +15,12 @@ namespace UI
 		[SerializeField] private Button _accountButton;
 		[SerializeField] private Button _settingsButton;
 		[SerializeField] private Button _aboutButton;
+		[SerializeField] private JoinLobbyPopup _joinLobbyPopupPrefab;
 		
-		//[Inject] private IPopupService _popupService;
-		[Inject] private IGameStateService _gameStateService;
-		[Inject] private NetworkRunnerService _runnerService;
+		private IPopupService _popupService;
+		private IPopupService PopupService => _popupService ??= PersistentUIMonoInstaller.DiContainer.Resolve<IPopupService>();
+		
+		//[Inject] private IGameStateService _gameStateService;
 
 		private void Start()
 		{
@@ -39,10 +42,8 @@ namespace UI
 		}
 
 		private void OnPlayButtonClicked()
-		{	
-			_gameStateService.ChangeGameState(Trigger.GoToLobby);
-			_runnerService.GameStart();
-			_runnerService.LobbyService.Initialize(new LobbyInfo {PlayerCount = 2});
+		{
+			PopupService.CreatePopup(_joinLobbyPopupPrefab);
 		}
 	}
 }

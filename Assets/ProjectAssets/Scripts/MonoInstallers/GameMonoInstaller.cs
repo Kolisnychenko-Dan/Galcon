@@ -1,7 +1,5 @@
 ﻿using Game;
-using Game.Abstractions;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace MonoInstallers
