@@ -27,6 +27,11 @@ namespace Networking
 			_lobbyInfo = lobbyInfo;
 			_playerRefsToIds.Clear();
 			_gameStateService.ChangeGameState(Trigger.ConnectToRoom);
+
+			if (Runner.IsServer && Runner.IsPlayer)
+			{
+				_playerRefsToIds.Add(Runner.LocalPlayer, 0);
+			} 
 		}
 		
 		public void PlayerJoined(PlayerRef player)

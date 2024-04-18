@@ -60,7 +60,7 @@ namespace Networking
 
 			var result = await _runnerInstance.StartGame(gameArgs);
 
-			if (result.Ok)
+			if (result.Ok && _runnerInstance.IsServer)
 			{
 				var lobbyService = _runnerInstance.Spawn(_networkLobbyServicePrefab, null, null, PlayerRef.None,
 					onBeforeSpawned: (_,_) => {});
