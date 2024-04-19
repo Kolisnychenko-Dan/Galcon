@@ -2,7 +2,7 @@
 using Stateless;
 using UniRx;
 
-namespace Game.Abstractions
+namespace Abstractions
 {
 	public interface IGameStateService
 	{

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
+using Abstractions;
 using Fusion;
-using Game.Abstractions;
 using Networking.Abstractions;
 using Tools;
-using UniRx;
 using UnityEngine;
 using Zenject;
 
@@ -13,14 +11,11 @@ namespace Networking
 	public class NetworkLobbyService : NetworkBehaviour, ILobbyService, IPlayerJoined, IPlayerLeft
 	{
 		private readonly BijectiveDictionary<PlayerRef, int> _playerRefsToIds = new();
-		private readonly Subject<LobbyInfo> _allPlayersJoinedSubject = new();
 		private LobbyInfo _lobbyInfo;
 		
 		[Inject] private IGameStateService _gameStateService;
-			
-		public IReadOnlyBijectiveDictionary<PlayerRef, int> PlayerRefToIdMap => _playerRefsToIds;
 		
-		public IObservable<LobbyInfo> OnAllPlayersJoined => _allPlayersJoinedSubject;
+		public IReadOnlyBijectiveDictionary<PlayerRef, int> PlayerRefToIdMap => _playerRefsToIds;
 
 		public void Initialize(LobbyInfo lobbyInfo)
 		{

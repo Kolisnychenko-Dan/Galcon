@@ -2,6 +2,7 @@
 using System.Linq;
 using Fusion;
 using Game.Abstractions;
+using UniRx;
 using UnityEngine;
 using Zenject;
 
@@ -11,9 +12,11 @@ namespace Game
 	{
 		[SerializeField] private NetworkPrefabRef _planet;
 		
-		private List<Planet> _planets = new();
+		private ReactiveProperty<IReadOnlyList<Planet>> _planets = new();
 
 		[Inject] private DiContainer _diContainer;
+
+		public IReactiveProperty<IReadOnlyList<Planet>> Planets => _planets;
 		
 		public override void Spawned()
 		{
@@ -35,8 +38,8 @@ namespace Game
 			var map = Runner.Spawn(_planet, null, null, PlayerRef.None,
 				onBeforeSpawned: (_,_) => {});
 
-			_planets = map.gameObject.GetComponentsInChildren<Planet>().ToList();
-			foreach (var planet in _planets)
+			_planets.Value = map.gameObject.GetComponentsInChildren<Planet>().ToList();
+			foreach (var planet in _planets.Value)
 			{
 				_diContainer.Inject(planet);
 			}

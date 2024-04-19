@@ -1,10 +1,6 @@
 ﻿using System;
 using Fusion;
-using Networking.Abstractions;
-using TMPro;
-using UniRx;
 using UnityEngine;
-using Zenject;
 
 namespace Game
 {
@@ -14,10 +10,6 @@ namespace Game
 		[SerializeField] private int _startingOwnerId = -1;
 		[SerializeField] private float _productionRateMultiplier = 1;
 		[SerializeField] private float _startingValue;
-		
-		[Header("Serialized Components")]
-		[SerializeField] private SpriteRenderer _tintSpriteRenderer;
-		[SerializeField] private TextMeshProUGUI _valueText;
 		
 		[Networked] public float Value { get; private set; }
 		[Networked] public int OwnerId { get; private set; }
@@ -51,23 +43,6 @@ namespace Game
 					
 				}
 			}
-		}
-
-		private void Start()
-		{
-			UpdateView();
-
-			Observable.IntervalFrame(20, FrameCountType.EndOfFrame).Subscribe(_ =>
-				{
-					UpdateView();
-				})
-				.AddTo(gameObject);
-		}
-
-		private void UpdateView()
-		{
-			_tintSpriteRenderer.color = Constants.PlayerIdToColorMap[OwnerId];
-			_valueText.text = Value.ToString("0");
 		}
 	}
 }

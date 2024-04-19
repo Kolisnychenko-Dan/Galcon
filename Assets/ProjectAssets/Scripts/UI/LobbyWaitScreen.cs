@@ -1,5 +1,4 @@
-﻿using ProjectAssets.Scripts;
-using Tools;
+﻿using Tools;
 using UniRx;
 using UnityEngine;
 

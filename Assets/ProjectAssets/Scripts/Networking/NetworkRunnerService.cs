@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
+using Abstractions;
 using Cysharp.Threading.Tasks;
 using Fusion;
-using Game.Abstractions;
 using Networking.Abstractions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -36,17 +36,6 @@ namespace Networking
 
 			return UniTask.CompletedTask;
 		}
-
-		// public void GameStart()
-		// {
-		// 	var gameArgs = new StartGameArgs()
-		// 	{
-		// 		GameMode = GameMode.AutoHostOrClient,
-		// 		SessionName = "Booba",
-		// 		//ObjectProvider = _runnerInstance.GetComponent<NetworkObjectPoolDefault>(),
-		// 	};
-		// 	StartGame(gameArgs);
-		// }
 
 		public async Task<StartGameResult> StartGame(StartGameArgs gameArgs)
 		{
