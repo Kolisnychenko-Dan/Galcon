@@ -61,27 +61,6 @@ namespace Game
 			StateMachine.Configure(State.GameRunning)
 				.OnEntryAsync(() => _networkRunnerService.LoadNetworkScene(Constants.GameSceneName));
 		}
-
-		private async UniTask LoadSceneAsync(Scene scene, LoadSceneMode loadSceneMode, bool makeActive = true)
-		{
-			var sceneName = scene.ToString();
-			var asyncOp = SceneManager.LoadSceneAsync(sceneName, loadSceneMode)
-				.ToUniTask(Progress.Create<float>(_ => {}));
-
-			await asyncOp;
-
-			if (makeActive)
-			{
-				var sceneInstance = SceneManager.GetSceneByName(sceneName);
-				SceneManager.SetActiveScene(sceneInstance);
-			}
-		}
-
-		private async UniTask UnloadSceneAsync(Scene scene)
-		{
-			var asyncOp = SceneManager.UnloadSceneAsync(scene.ToString());
-			await asyncOp;
-		}
 		
 		private async UniTask LoadSceneAsync(string scene, LoadSceneMode loadSceneMode, bool makeActive = true)
 		{
