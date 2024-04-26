@@ -10,29 +10,39 @@ namespace Networking
 {
 	public class NetworkLobbyService : NetworkBehaviour, ILobbyService, IPlayerJoined, IPlayerLeft
 	{
-		private readonly BijectiveDictionary<PlayerRef, int> _playerRefsToIds = new();
 		private LobbyInfo _lobbyInfo;
 		
 		[Inject] private IGameStateService _gameStateService;
-		
-		public IReadOnlyBijectiveDictionary<PlayerRef, int> PlayerRefToIdMap => _playerRefsToIds;
+
+		[Networked, Capacity(4)] public NetworkDictionary<PlayerRef, int> PlayerRefToIdMap => default;
+
+		public override void Spawned()
+		{
+			base.Spawned();
+			
+			DontDestroyOnLoad(gameObject);
+		}
 
 		public void Initialize(LobbyInfo lobbyInfo)
 		{
+			if (!Runner.IsServer) return;
+				
 			_lobbyInfo = lobbyInfo;
-			_playerRefsToIds.Clear();
+			PlayerRefToIdMap.Clear();
 			_gameStateService.ChangeGameState(Trigger.ConnectToRoom);
 
-			if (Runner.IsServer && Runner.IsPlayer)
+			if (Runner.IsPlayer)
 			{
-				_playerRefsToIds.Add(Runner.LocalPlayer, 0);
+				PlayerRefToIdMap.Add(Runner.LocalPlayer, 0);
 			} 
 		}
 		
 		public void PlayerJoined(PlayerRef player)
 		{
+			if (!Runner.IsServer) return;
+			
 			int newPlayerId = GenerateNewPlayerId();
-			_playerRefsToIds.Add(player, newPlayerId);
+			PlayerRefToIdMap.Add(player, newPlayerId);
 
 			Debug.Log($"Player {newPlayerId} has joined the lobby.");
 			
@@ -44,13 +54,15 @@ namespace Networking
 
 		public void PlayerLeft(PlayerRef player)
 		{
-			_playerRefsToIds.RemoveByKey(player);
+			if (!Runner.IsServer) return;
+			
+			PlayerRefToIdMap.Remove(player);
 			Debug.Log($"Player has left the lobby.");
 		}
 		
 		private int GenerateNewPlayerId()
 		{
-			return _playerRefsToIds.Max(kvp => kvp.Value) + 1;
+			return PlayerRefToIdMap.Max(kvp => kvp.Value) + 1;
 		}
 	}
 }

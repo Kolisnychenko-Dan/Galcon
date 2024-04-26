@@ -13,8 +13,6 @@ namespace Game
 		
 		[Networked] public float Value { get; private set; }
 		[Networked] public int OwnerId { get; private set; }
-
-		//[Inject] private ILobbyService _lobbyService;
 		
 		public override void Spawned()
 		{

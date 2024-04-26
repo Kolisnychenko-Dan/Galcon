@@ -5,6 +5,6 @@ namespace Networking.Abstractions
 {
 	public interface ILobbyService
 	{
-		IReadOnlyBijectiveDictionary<PlayerRef, int> PlayerRefToIdMap { get; }
+		public NetworkDictionary<PlayerRef, int> PlayerRefToIdMap { get; }
 	}
 }

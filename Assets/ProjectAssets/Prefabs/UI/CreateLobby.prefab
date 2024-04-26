@@ -631,7 +631,7 @@ MonoBehaviour:
   m_Text: 1234567890
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
-  m_ReadOnly: 1
+  m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
 --- !u!1 &7108732132155607889
 GameObject:

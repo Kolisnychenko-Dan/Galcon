@@ -1,8 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Abstractions;
 using Cysharp.Threading.Tasks;
 using Fusion;
 using Networking.Abstractions;
+using UniRx;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -25,7 +27,7 @@ namespace Networking
 			return _runnerInstance;
 		}
 
-		public NetworkLobbyService LobbyService => _networkLobbyService;
+		public NetworkLobbyService LobbyService => _networkLobbyService ??= FindFirstObjectByType<NetworkLobbyService>();
 
 		public UniTask LoadNetworkScene(string sceneName, LoadSceneMode loadSceneMode)
 		{
@@ -39,7 +41,7 @@ namespace Networking
 
 		public async Task<StartGameResult> StartGame(StartGameArgs gameArgs)
 		{
-			_runnerInstance = FindObjectOfType<NetworkRunner>();
+			_runnerInstance = FindFirstObjectByType<NetworkRunner>();
 			if (_runnerInstance == null)
 			{
 				_runnerInstance = Instantiate(_networkRunnerPrefab);
@@ -51,12 +53,20 @@ namespace Networking
 
 			if (result.Ok && _runnerInstance.IsServer)
 			{
-				var lobbyService = _runnerInstance.Spawn(_networkLobbyServicePrefab, null, null, PlayerRef.None,
-					onBeforeSpawned: (_,_) => {});
-
-				_networkLobbyService = lobbyService.GetComponent<NetworkLobbyService>();
-				_diContainer.Inject(_networkLobbyService);
-				_networkLobbyService.Initialize(new LobbyInfo {PlayerCount = gameArgs.PlayerCount.Value});
+				if(_networkLobbyService == null)
+				{
+					await _runnerInstance.SpawnAsync(_networkLobbyServicePrefab, null, null, PlayerRef.None,
+						onBeforeSpawned: (_, ls) =>
+						{
+							_networkLobbyService = ls.GetComponent<NetworkLobbyService>();
+							_diContainer.Inject(_networkLobbyService);
+							_networkLobbyService.Initialize(new LobbyInfo {PlayerCount = gameArgs.PlayerCount.Value});
+						});
+				}
+				else
+				{
+					_networkLobbyService.Initialize(new LobbyInfo {PlayerCount = gameArgs.PlayerCount.Value});
+				}
 			}
 
 			return result;

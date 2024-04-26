@@ -1,9 +1,10 @@
 ﻿using Fusion;
+using UnityEngine;
 
 namespace Game
 {
 	public class Ship : NetworkBehaviour
 	{
-		[Networked] public int OwnerId { get; private set; }
+		
 	}
 }

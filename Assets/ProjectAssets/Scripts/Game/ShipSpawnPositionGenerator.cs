@@ -3,17 +3,17 @@ using UnityEngine;
 
 namespace Game
 {
-	public class ShipPositionGeneratorSpawner : MonoBehaviour
+	public class ShipSpawnPositionGenerator : MonoBehaviour
     {
-        [SerializeField] private GameObject _shipPrefab;
         [SerializeField] private float _radiusOffset;
         [SerializeField] private GameObject _parentPlanet;
 
         private float _planetRadius;
         private float _shipRadius;
         private int _maxShipsCount;
+        private GameObject _shipPrefab;
 
-        public void Initialize()
+        public void Initialize(GameObject shipObject)
         {
             _planetRadius = GetPlanetRadius(_parentPlanet);
             _shipRadius = GetShipRadius(_shipPrefab);
