@@ -13,8 +13,11 @@ namespace Game
         private int _maxShipsCount;
         private GameObject _shipPrefab;
 
+        public int MaxShipsSpawn => _maxShipsCount;
+
         public void Initialize(GameObject shipObject)
         {
+            _shipPrefab = shipObject;
             _planetRadius = GetPlanetRadius(_parentPlanet);
             _shipRadius = GetShipRadius(_shipPrefab);
             float spawnRadius = _planetRadius + _radiusOffset + _shipRadius;

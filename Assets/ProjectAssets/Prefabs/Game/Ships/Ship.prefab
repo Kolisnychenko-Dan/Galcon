@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 2058862563027587931}
   - component: {fileID: 7894319549314335825}
   - component: {fileID: 552055552980500475}
+  - component: {fileID: 511143204620505628}
+  - component: {fileID: 6410910592337586684}
   m_Layer: 6
   m_Name: Ship
   m_TagString: Untagged
@@ -81,14 +83,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 737449693349366407}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_AngularDrag: 1.7
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -96,9 +98,9 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!114 &2058862563027587931
 MonoBehaviour:
@@ -119,6 +121,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 7894319549314335825}
   - {fileID: 552055552980500475}
+  - {fileID: 6410910592337586684}
 --- !u!114 &7894319549314335825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,6 +156,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c403b4287954d6dbff2ef9d9bcb9206, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 5
+  _planetCollisionLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  _rigidbody: {fileID: 4272154575538912736}
+  _TargetPosition: {x: 0, y: 0, z: 0}
+--- !u!114 &511143204620505628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737449693349366407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1014831617, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 2
+  SphereRadius: 0.66
+  CapsuleRadius: 0
+  BoxExtents: {x: 0, y: 0, z: 0}
+  CapsuleExtents: 0
+  Offset: {x: 0, y: 0, z: 0}
+  Root: {fileID: 6410910592337586684}
+  GizmosColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+--- !u!114 &6410910592337586684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737449693349366407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1039544458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Config: 3
+  BroadRadius: 0.66
+  Offset: {x: 0, y: 0, z: 0}
+  GizmosColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  Hitboxes:
+  - {fileID: 511143204620505628}
 --- !u!1 &974677268130171981
 GameObject:
   m_ObjectHideFlags: 0

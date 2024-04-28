@@ -8,7 +8,7 @@ using Zenject;
 
 namespace Game
 {
-	public class MapSpawner : NetworkBehaviour, IMapSpawner
+	public class MapSpawnerService : NetworkBehaviour, IMapSpawnerService
 	{
 		[SerializeField] private NetworkPrefabRef _planet;
 		
@@ -33,9 +33,9 @@ namespace Game
 			}
 		}
 		
-		private void SpawnPlanet()
+		private async void SpawnPlanet()
 		{
-			var map = Runner.Spawn(_planet, null, null, PlayerRef.None,
+			var map = await Runner.SpawnAsync(_planet, null, null, PlayerRef.None,
 				onBeforeSpawned: (_,_) => {});
 
 			_planets.Value = map.gameObject.GetComponentsInChildren<Planet>().ToList();

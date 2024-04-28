@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 1481348256450952192}
   - component: {fileID: 3475312215610109718}
   - component: {fileID: 7861945180824509411}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &1481348256450952192
 RectTransform:
@@ -148,12 +148,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1586344521897882721}
   - component: {fileID: 9094050258364020923}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &1586344521897882721
 RectTransform:
@@ -214,12 +214,13 @@ GameObject:
   - component: {fileID: 6792340290033009464}
   - component: {fileID: 6612029567464899540}
   - component: {fileID: 6097548740693002543}
-  m_Layer: 0
+  - component: {fileID: 8609743084366058164}
+  m_Layer: 7
   m_Name: Planet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8206446042508992150
 Transform:
@@ -312,6 +313,8 @@ MonoBehaviour:
   _startingOwnerId: -1
   _productionRateMultiplier: 1
   _startingValue: 0
+  _hitbox: {fileID: 6612029567464899540}
+  _hitboxRoot: {fileID: 6097548740693002543}
   _Value: 0
   _OwnerId: 0
 --- !u!114 &5674262892569497800
@@ -384,6 +387,20 @@ MonoBehaviour:
   GizmosColor: {r: 1, g: 0.7783019, b: 0.7783019, a: 1}
   Hitboxes:
   - {fileID: 6612029567464899540}
+--- !u!114 &8609743084366058164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5065661764684109816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 331dc716a2224e72a3bbf4213198a2b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _radiusOffset: 0.1
+  _parentPlanet: {fileID: 5065661764684109816}
 --- !u!1 &5183489931889227585
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,12 +411,12 @@ GameObject:
   m_Component:
   - component: {fileID: 5263529550906377116}
   - component: {fileID: 467796087394235809}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Tint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5263529550906377116
 Transform:
@@ -480,12 +497,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1741527095994109086}
   - component: {fileID: 1314884431111358148}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Outline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1741527095994109086
 Transform:
@@ -567,12 +584,12 @@ GameObject:
   m_Component:
   - component: {fileID: 6039555038871123635}
   - component: {fileID: 9207707863405640816}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6039555038871123635
 Transform:
@@ -714,12 +731,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1894591328552865530}
   - component: {fileID: 1600333890985583498}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1894591328552865530
 Transform:
@@ -801,6 +818,14 @@ PrefabInstance:
     - target: {fileID: 134308, guid: 718940f807eb53f4aa0c16d70080432d, type: 3}
       propertyPath: m_Name
       value: Planet_A
+      objectReference: {fileID: 0}
+    - target: {fileID: 134308, guid: 718940f807eb53f4aa0c16d70080432d, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 134308, guid: 718940f807eb53f4aa0c16d70080432d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 411794, guid: 718940f807eb53f4aa0c16d70080432d, type: 3}
       propertyPath: m_LocalPosition.x
