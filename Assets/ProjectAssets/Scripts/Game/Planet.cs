@@ -23,6 +23,25 @@ namespace Game
 				Value = Mathf.Max(0, Value - value);
 			}
 		}
+
+		public void OnShipReached(int shipOwnerId)
+		{
+			if (Runner.IsServer)
+			{
+				if (OwnerId != shipOwnerId)
+				{
+					if (--Value < 0)
+					{
+						OwnerId = shipOwnerId;
+						Value = 0;
+					}
+				}
+				else
+				{
+					++Value;
+				}
+			}
+		}
 		
 		public override void Spawned()
 		{
@@ -38,21 +57,9 @@ namespace Game
 
 		public override void FixedUpdateNetwork()
 		{
-			if (Runner.IsServer)
+			if (Runner.IsServer && OwnerId != Constants.NoOwnerId)
 			{
 				Value += Runner.DeltaTime * MathF.Pow(transform.localScale.x * 2f, 2) * _productionRateMultiplier;
-			}
-		}
-		
-		private void OnTriggerEnter(Collider other)
-		{
-			if (Runner.IsServer)
-			{
-				var ship = other.gameObject.GetComponent<Ship>();
-				if (ship != null)
-				{
-					
-				}
 			}
 		}
 	}

@@ -63,7 +63,7 @@ namespace Game
             if (_lagCompensatedHits.Any(hit => _planetCollisionLayer == (_planetCollisionLayer | (1 << hit.GameObject.layer))
                 && hit.GameObject.GetComponent<Planet>() == _destinationPlanet))
             {
-                Debug.Log("tryDespawn");
+                _destinationPlanet.OnShipReached(_ownerId);
                 DestroyShip();
             }
         }

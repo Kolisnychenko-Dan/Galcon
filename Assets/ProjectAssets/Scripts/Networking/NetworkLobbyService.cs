@@ -12,7 +12,7 @@ namespace Networking
 	{
 		private LobbyInfo _lobbyInfo;
 		
-		[Inject] private IGameStateService _gameStateService;
+		[Inject] private IAppStateService _appStateService;
 
 		[Networked, Capacity(4)] public NetworkDictionary<PlayerRef, int> PlayerRefToIdMap => default;
 
@@ -29,7 +29,7 @@ namespace Networking
 				
 			_lobbyInfo = lobbyInfo;
 			PlayerRefToIdMap.Clear();
-			_gameStateService.ChangeGameState(Trigger.ConnectToRoom);
+			_appStateService.ChangeGameState(Trigger.ConnectToRoom);
 
 			if (Runner.IsPlayer)
 			{
@@ -48,7 +48,7 @@ namespace Networking
 			
 			if (_lobbyInfo.PlayerCount == Runner.ActivePlayers.Count())
 			{
-				_gameStateService.ChangeGameState(Trigger.StartGame);
+				_appStateService.ChangeGameState(Trigger.StartGame);
 			}
 		}
 

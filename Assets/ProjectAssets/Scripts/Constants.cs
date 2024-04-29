@@ -6,8 +6,9 @@ public static class Constants
 	public const string GameSceneName = "Game";
 	public const string StartSceneName = "StartScene";
 	public const string UIScene = "PersistantUI";
+	public const int NoOwnerId = -1;
 
-	public static IReadOnlyDictionary<int, Color32> PlayerIdToColorMap = new Dictionary<int, Color32>
+	public static readonly IReadOnlyDictionary<int, Color32> PlayerIdToColorMap = new Dictionary<int, Color32>
 	{
 		{-1, new Color32(77,77,77, 128)},
 		{0, new Color32(77,177,255, 128)},

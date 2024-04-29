@@ -19,7 +19,7 @@ namespace Networking
 		private NetworkRunner _runnerInstance = null;
 		private NetworkLobbyService _networkLobbyService;
 
-		[Inject] private IGameStateService _gameStateService;
+		[Inject] private IAppStateService _appStateService;
 		[Inject] private DiContainer _diContainer;
 
 		public NetworkRunner GetCurrentNetworkRunner()

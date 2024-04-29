@@ -13,7 +13,7 @@ using Zenject;
 
 namespace Game
 {
-	public class GameStateService : AService, IGameStateService
+	public class AppStateService : AService, IAppStateService
 	{
 		private readonly Subject<StateMachine<State, Trigger>.Transition> _onStateChanged = new ();
 		private StateMachine<State, Trigger> StateMachine { get; } = new (State.Start, FiringMode.Queued);

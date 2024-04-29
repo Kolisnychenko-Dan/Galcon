@@ -12,7 +12,7 @@ namespace MonoInstallers
 		
 		public override void InstallBindings()
 		{
-			Container.BindInterfacesTo<GameStateService>().AsSingle();
+			Container.BindInterfacesTo<AppStateService>().AsSingle();
 			Container.BindInterfacesTo<EventManager>().AsSingle();
 			Container.BindInterfacesAndSelfTo<NetworkRunnerService>().FromInstance(_runnerService).AsSingle();
 		}

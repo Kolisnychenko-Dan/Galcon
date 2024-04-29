@@ -4,7 +4,7 @@ using UniRx;
 
 namespace Abstractions
 {
-	public interface IGameStateService
+	public interface IAppStateService
 	{
 		public void ChangeGameState(Trigger trigger);
 
