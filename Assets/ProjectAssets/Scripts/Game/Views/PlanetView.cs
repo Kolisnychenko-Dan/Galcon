@@ -40,7 +40,7 @@ namespace Game.Views
 		{
 			UpdateView();
 
-			Observable.IntervalFrame(20, FrameCountType.EndOfFrame).Subscribe(_ =>
+			Observable.IntervalFrame(5, FrameCountType.EndOfFrame).Subscribe(_ =>
 				{
 					UpdateView();
 				})

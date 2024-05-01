@@ -1,5 +1,6 @@
 ﻿using System;
 using Fusion;
+using Tools;
 using UnityEngine;
 
 namespace Game
@@ -34,6 +35,8 @@ namespace Game
 					{
 						OwnerId = shipOwnerId;
 						Value = 0;
+						
+						EventManager.Instance.EmitEvent(EventNames.PlanetCaptured, this);
 					}
 				}
 				else

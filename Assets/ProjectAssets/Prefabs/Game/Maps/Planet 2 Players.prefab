@@ -223,6 +223,10 @@ PrefabInstance:
       propertyPath: _ownerId
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 3353140625178308778, guid: 594d8cd77342ea54a858d477ebae7fac, type: 3}
+      propertyPath: _startingValue
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3536808642866640330, guid: 594d8cd77342ea54a858d477ebae7fac, type: 3}
       propertyPath: SortKey
       value: 2056699210
@@ -365,6 +369,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8869087854309769414}
     m_Modifications:
+    - target: {fileID: 3353140625178308778, guid: 594d8cd77342ea54a858d477ebae7fac, type: 3}
+      propertyPath: _startingValue
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3536808642866640330, guid: 594d8cd77342ea54a858d477ebae7fac, type: 3}
       propertyPath: SortKey
       value: 2771968422

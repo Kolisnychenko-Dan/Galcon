@@ -59,7 +59,11 @@ namespace Game
 				});
 
 			StateMachine.Configure(State.GameRunning)
+				.Permit(Trigger.EndGame, State.Ending)
 				.OnEntryAsync(() => _networkRunnerService.LoadNetworkScene(Constants.GameSceneName));
+
+			StateMachine.Configure(State.Ending)
+				.Permit(Trigger.GoToStartScreen, State.Start);
 		}
 		
 		private async UniTask LoadSceneAsync(string scene, LoadSceneMode loadSceneMode, bool makeActive = true)

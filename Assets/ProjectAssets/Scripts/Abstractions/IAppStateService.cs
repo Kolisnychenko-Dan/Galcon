@@ -26,6 +26,7 @@ namespace Abstractions
 		ConnectToRoom,
 		StartGame,
 		EndGame,
+		GoToStartScreen,
 		Restart,
 		GoToLobby,
 		GoBack,

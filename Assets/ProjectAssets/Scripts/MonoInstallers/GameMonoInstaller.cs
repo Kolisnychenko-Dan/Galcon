@@ -9,12 +9,14 @@ namespace MonoInstallers
 		[SerializeField] private MapSpawnerService _mapSpawnerService;
 		[SerializeField] private PlanetSwipeDetector _swipeDetector;
 		[SerializeField] private ShipSpawnerService _shipSpawnerService;
+		[SerializeField] private GameStateService _gameStateService;
 		
 		public override void InstallBindings()
 		{
 			Container.BindInterfacesTo<MapSpawnerService>().FromInstance(_mapSpawnerService).AsSingle();
 			Container.BindInterfacesTo<PlanetSwipeDetector>().FromInstance(_swipeDetector).AsSingle();
 			Container.BindInterfacesTo<ShipSpawnerService>().FromInstance(_shipSpawnerService).AsSingle();
+			Container.BindInterfacesTo<GameStateService>().FromInstance(_gameStateService).AsSingle();
 		}
 	}
 }
