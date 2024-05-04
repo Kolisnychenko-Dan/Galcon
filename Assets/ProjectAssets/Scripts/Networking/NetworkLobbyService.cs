@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Abstractions;
 using Fusion;
@@ -16,11 +17,11 @@ namespace Networking
 	{
 		private LobbyInfo _lobbyInfo;
 		private CompositeDisposable _playerReadyDisposable = new ();
+		private Dictionary<PlayerRef, bool> _playerReadyMap  = new ();
 		
 		[Inject] private IAppStateService _appStateService;
 
 		[Networked, Capacity(4)] public NetworkDictionary<PlayerRef, int> PlayerRefToIdMap => default;
-		[Networked, Capacity(4)] public NetworkDictionary<PlayerRef, bool> PlayerReadyMap => default;
 
 		public override void Spawned()
 		{
@@ -34,9 +35,15 @@ namespace Networking
 
 				if (Runner.IsPlayer)
 				{
-					PlayerReadyMap.Add(Runner.LocalPlayer, true);
+					PlayerLoadedRpc(Runner.LocalPlayer);
 				}
 			}
+		}
+
+		[Rpc(RpcSources.Proxies, RpcTargets.StateAuthority)]
+		public void PlayerLoadedRpc(PlayerRef player)
+		{
+			_playerReadyMap.Add(player, true);
 		}
 
 		public void Initialize(LobbyInfo lobbyInfo)
@@ -46,14 +53,14 @@ namespace Networking
 			_lobbyInfo = lobbyInfo;
 			
 			PlayerRefToIdMap.Clear();
-			PlayerReadyMap.Clear();
+			_playerReadyMap.Clear();
 			
 			_appStateService.ChangeGameState(Trigger.ConnectToRoom);
 
 			if (Runner.IsPlayer)
 			{
 				PlayerRefToIdMap.Add(Runner.LocalPlayer, 0);
-				PlayerReadyMap.Add(Runner.LocalPlayer, true);
+				_playerReadyMap.Add(Runner.LocalPlayer, true);
 			} 
 		}
 		
@@ -70,8 +77,8 @@ namespace Networking
 			{
 				_playerReadyDisposable.Clear();
 				Observable.EveryUpdate()
-					.Where(_ => PlayerReadyMap.All(kp => kp.Value))
-					.Skip(1)
+					.Where(_ => _playerReadyMap.Count == _lobbyInfo.PlayerCount &&
+						_playerReadyMap.All(kp => kp.Value))
 					.Subscribe(_ =>
 					{
 						OnAllPlayersJoinedRpc();

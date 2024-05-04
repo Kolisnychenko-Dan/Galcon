@@ -27,8 +27,26 @@ namespace Game
 			_popupService = PersistentUIMonoInstaller.DiContainer.Resolve<IPopupService>();
 			
 			EventManager.Instance.GetEvent<Planet>(EventNames.PlanetCaptured)
+				.Where(_ => Runner.IsServer)
 				.Subscribe(OnPlanetCaptured)
 				.AddTo(gameObject);
+		}
+
+		[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+		public void OnMatchEndRpc(int winnerId)
+		{
+			_appStateService.ChangeGameState(Trigger.EndGame);
+			
+			var endScreenPopup = _popupService.CreatePopup(_endScreenPopup);
+			endScreenPopup.Initialize(winnerId);
+
+			endScreenPopup.OnOkClicked
+				.Subscribe(_ => GoToMainMenu())
+				.AddTo(endScreenPopup.gameObject);
+				  
+			endScreenPopup.OnRerunClicked
+				.Subscribe(_ => RerunTheMatch())
+				.AddTo(endScreenPopup.gameObject);
 		}
 
 		private void OnPlanetCaptured(Planet planet)
@@ -36,16 +54,7 @@ namespace Game
 			bool isWin = CheckWinConditionForPlayer(planet.OwnerId);
 			if (isWin)
 			{
-				var endScreenPopup = _popupService.CreatePopup(_endScreenPopup);
-				endScreenPopup.Initialize(planet.OwnerId);
-
-				endScreenPopup.OnOkClicked
-					.Subscribe(_ => GoToMainMenu())
-					.AddTo(endScreenPopup.gameObject);
-				  
-				endScreenPopup.OnRerunClicked
-					.Subscribe(_ => RerunTheMatch())
-					.AddTo(endScreenPopup.gameObject);
+				OnMatchEndRpc(planet.OwnerId);
 			}
 		}
 
