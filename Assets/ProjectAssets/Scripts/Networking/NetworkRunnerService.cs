@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Abstractions;
 using Cysharp.Threading.Tasks;
 using Fusion;
+using MonoInstallers;
 using Networking.Abstractions;
 using UniRx;
 using UnityEngine;
@@ -20,7 +21,6 @@ namespace Networking
 		private NetworkLobbyService _networkLobbyService;
 
 		[Inject] private IAppStateService _appStateService;
-		[Inject] private DiContainer _diContainer;
 
 		public NetworkRunner GetCurrentNetworkRunner()
 		{
@@ -31,12 +31,17 @@ namespace Networking
 
 		public UniTask LoadNetworkScene(string sceneName, LoadSceneMode loadSceneMode)
 		{
+			UniTask waitLoadSceneTask;
 			if (_runnerInstance.IsServer)
 			{
-				return _runnerInstance.LoadScene(sceneName, loadSceneMode).ToUniTask();
+				waitLoadSceneTask = _runnerInstance.LoadScene(sceneName, loadSceneMode).ToUniTask();
+			}
+			else
+			{
+				waitLoadSceneTask = UniTask.WaitUntil(() => SceneManager.GetSceneByName(sceneName).isLoaded);
 			}
 
-			return UniTask.CompletedTask;
+			return waitLoadSceneTask;
 		}
 
 		public async Task<StartGameResult> StartGame(StartGameArgs gameArgs)
@@ -59,7 +64,7 @@ namespace Networking
 						onBeforeSpawned: (_, ls) =>
 						{
 							_networkLobbyService = ls.GetComponent<NetworkLobbyService>();
-							_diContainer.Inject(_networkLobbyService);
+							ApplicationMonoInstaller.DiContainer.Inject(_networkLobbyService);
 							_networkLobbyService.Initialize(new LobbyInfo {PlayerCount = gameArgs.PlayerCount.Value});
 						});
 				}
@@ -67,6 +72,10 @@ namespace Networking
 				{
 					_networkLobbyService.Initialize(new LobbyInfo {PlayerCount = gameArgs.PlayerCount.Value});
 				}
+			}
+			else if(result.Ok && _runnerInstance.IsClient)
+			{
+				_appStateService.ChangeGameState(Trigger.ConnectToRoom);
 			}
 
 			return result;

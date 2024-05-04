@@ -10,8 +10,12 @@ namespace MonoInstallers
 	{
 		[SerializeField] private NetworkRunnerService _runnerService;
 		
+		public static DiContainer DiContainer;
+		
 		public override void InstallBindings()
 		{
+			DiContainer = Container;
+			
 			Container.BindInterfacesTo<AppStateService>().AsSingle();
 			Container.BindInterfacesTo<EventManager>().AsSingle();
 			Container.BindInterfacesAndSelfTo<NetworkRunnerService>().FromInstance(_runnerService).AsSingle();

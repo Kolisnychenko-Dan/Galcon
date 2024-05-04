@@ -16,4 +16,13 @@ public static class Constants
 		{2, new Color32(50,255,50, 128)},
 		{3, new Color32(255,255,50, 128)},
 	};
+	
+	public static readonly IReadOnlyDictionary<int, string> PlayerIdToNameMap = new Dictionary<int, string>
+	{
+		{-1, "None"},
+		{0, "Blue"},
+		{1, "Red"},
+		{2, "Green"},
+		{3, "Yellow"},
+	};
 }

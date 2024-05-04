@@ -184,6 +184,7 @@ MonoBehaviour:
   _mapSpawnerService: {fileID: 1407664974}
   _swipeDetector: {fileID: 2135931133}
   _shipSpawnerService: {fileID: 1407664975}
+  _gameStateService: {fileID: 0}
 --- !u!114 &180916002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,6 +243,7 @@ GameObject:
   - component: {fileID: 252069900}
   - component: {fileID: 252069899}
   - component: {fileID: 252069898}
+  - component: {fileID: 252069901}
   m_Layer: 0
   m_Name: GameInteractionManager
   m_TagString: Untagged
@@ -267,6 +269,7 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 252069899}
+  - {fileID: 252069901}
 --- !u!114 &252069899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,6 +297,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &252069901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 252069897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ec3a946797246f98ffb5cf7a0d06b8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _endScreenPopup: {fileID: 5451827559655402753, guid: 4bb972149a4125b468405793dcec5172, type: 3}
 --- !u!1 &1407664971
 GameObject:
   m_ObjectHideFlags: 0

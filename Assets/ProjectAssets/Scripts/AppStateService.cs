@@ -10,6 +10,7 @@ using UniRx;
 using UnityEngine.Device;
 using UnityEngine.SceneManagement;
 using Zenject;
+using Debug = UnityEngine.Debug;
 
 namespace Game
 {
@@ -60,10 +61,22 @@ namespace Game
 
 			StateMachine.Configure(State.GameRunning)
 				.Permit(Trigger.EndGame, State.Ending)
-				.OnEntryAsync(() => _networkRunnerService.LoadNetworkScene(Constants.GameSceneName));
+				.OnEntryAsync(async() =>
+				{
+					await _networkRunnerService.LoadNetworkScene(Constants.GameSceneName, LoadSceneMode.Additive);
+					SceneManager.SetActiveScene(SceneManager.GetSceneByName(Constants.GameSceneName));
+				});
 
 			StateMachine.Configure(State.Ending)
-				.Permit(Trigger.GoToStartScreen, State.Start);
+				.Permit(Trigger.GoToStartScreen, State.Start)
+				.OnExitAsync(async() =>
+				{
+					await UniTask.WhenAll(
+						_networkRunnerService.GetCurrentNetworkRunner().Shutdown().AsUniTask(),
+						UnloadSceneAsync(Constants.GameSceneName),
+						LoadSceneAsync(Constants.StartSceneName, LoadSceneMode.Additive)
+					);
+				});
 		}
 		
 		private async UniTask LoadSceneAsync(string scene, LoadSceneMode loadSceneMode, bool makeActive = true)
