@@ -35,14 +35,15 @@ namespace Game
 		
 		private async void SpawnPlanet()
 		{
-			var map = await Runner.SpawnAsync(_planet, null, null, PlayerRef.None,
-				onBeforeSpawned: (_,_) => {});
-
-			_planets.Value = map.gameObject.GetComponentsInChildren<Planet>().ToList();
-			foreach (var planet in _planets.Value)
-			{
-				_diContainer.Inject(planet);
-			}
+			await Runner.SpawnAsync(_planet, null, null, PlayerRef.None,
+				onBeforeSpawned: (_, map) =>
+				{
+					_planets.Value = map.gameObject.GetComponentsInChildren<Planet>().ToList();
+					foreach (var planet in _planets.Value)
+					{
+						_diContainer.Inject(planet);
+					}
+				});
 		}
 	}
 }

@@ -1,6 +1,9 @@
-﻿using TMPro;
+﻿using DG.Tweening;
+using Networking.Abstractions;
+using TMPro;
 using UniRx;
 using UnityEngine;
+using Zenject;
 
 namespace Game.Views
 {
@@ -11,6 +14,7 @@ namespace Game.Views
 		[SerializeField] private TextMeshProUGUI _valueText;
 		[SerializeField] private LineRenderer _lineRenderer;
 		[SerializeField] private SpriteRenderer _outline;
+		[SerializeField] private GameObject _startPlanetHighlighter;
 
 		private Planet _planet;
 
@@ -47,6 +51,13 @@ namespace Game.Views
 				.AddTo(gameObject);
 			
 			SelectPlanet(false);
+
+			_startPlanetHighlighter.gameObject.SetActive(false);
+
+			if (_planet.PlayerRef == _planet.Runner.LocalPlayer)
+			{
+				ShowStartPlanetHighlighter();
+			}
 		}
 		
 		private void UpdateView()
@@ -60,6 +71,16 @@ namespace Game.Views
 			_outline.color = alphaStrippedColor;
 
 			_valueText.text = _planet.Value.ToString("0");
+		}
+		
+		private void ShowStartPlanetHighlighter()
+		{
+			_startPlanetHighlighter.gameObject.SetActive(true);
+			
+			_startPlanetHighlighter.transform.DORotate(new Vector3(0f, 0f, -180f), 3, RotateMode.FastBeyond360)
+				.SetEase(Ease.Linear)
+				.SetLoops(1, LoopType.Restart)
+				.OnComplete(() => _startPlanetHighlighter.gameObject.SetActive(false));
 		}
 	}
 }

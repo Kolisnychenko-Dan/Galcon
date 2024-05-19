@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Linq;
 using Fusion;
+using Networking.Abstractions;
 using Tools;
 using UnityEngine;
+using Zenject;
 
 namespace Game
 {
@@ -16,6 +19,11 @@ namespace Game
 		
 		[Networked] public float Value { get; private set; }
 		[Networked] public int OwnerId { get; private set; }
+		[Networked] public PlayerRef PlayerRef { get; private set; }
+		
+		[Inject] private INetworkRunnerService _networkRunnerService;
+		
+		private ILobbyService _lobbyService;
 
 		public void SubtractValue(int value)
 		{
@@ -53,8 +61,11 @@ namespace Game
 			
 			if (Runner.IsServer)
 			{
+				_lobbyService = _networkRunnerService.LobbyService;
+				
 				Value = _startingValue;
 				OwnerId = _startingOwnerId;
+				PlayerRef = OwnerId == -1 ? default : _lobbyService.PlayerRefToIdMap.First(kp => kp.Value == OwnerId).Key;
 			}
 		}
 
