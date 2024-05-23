@@ -2,6 +2,7 @@
 using System.Linq;
 using Fusion;
 using Game.Abstractions;
+using Networking.Abstractions;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -10,10 +11,13 @@ namespace Game
 {
 	public class MapSpawnerService : NetworkBehaviour, IMapSpawnerService
 	{
-		[SerializeField] private NetworkPrefabRef _planet;
+		[SerializeField] private NetworkPrefabRef[] _maps;
+		
+		private ILobbyService _lobbyService;
 		
 		private ReactiveProperty<IReadOnlyList<Planet>> _planets = new();
 
+		[Inject] private INetworkRunnerService _networkRunnerService;
 		[Inject] private DiContainer _diContainer;
 
 		public IReactiveProperty<IReadOnlyList<Planet>> Planets => _planets;
@@ -22,23 +26,26 @@ namespace Game
 		{
 			base.Spawned();
 			
-			SpawnPlanets(0);
+			_lobbyService ??= _networkRunnerService.LobbyService;
+			
+			SpawnMap(_lobbyService.PlayerRefToIdMap.Count);
 		}
 
-		public void SpawnPlanets(int playerCount)
+		public void SpawnMap(int playerCount)
 		{
 			if (Runner.IsServer)
 			{
-				SpawnPlanet();
+				SpawnMapAsync(playerCount);
 			}
 		}
 		
-		private async void SpawnPlanet()
+		private async void SpawnMapAsync(int playerCount)
 		{
-			await Runner.SpawnAsync(_planet, null, null, PlayerRef.None,
+			await Runner.SpawnAsync(_maps[playerCount - 2], null, null, PlayerRef.None,
 				onBeforeSpawned: (_, map) =>
 				{
-					_planets.Value = map.gameObject.GetComponentsInChildren<Planet>().ToList();
+					var planets = map.gameObject.GetComponentsInChildren<Planet>().ToList();
+					_planets.Value = planets;
 					foreach (var planet in _planets.Value)
 					{
 						_diContainer.Inject(planet);

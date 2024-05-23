@@ -11,6 +11,7 @@ namespace UI
 	public class CreateLobbyPopup : Popup
 	{
 		[SerializeField] private InputField _lobbyId;
+		[SerializeField] private SwitchComponent _toggleGroup;
 		[SerializeField] private Button _createButton;
 		[SerializeField] private JoinLobbyPopup _joinLobbyPopupPrefab;
 
@@ -45,7 +46,7 @@ namespace UI
 				{
 					GameMode = GameMode.Host,
 					SessionName = _lobbyId.text,
-					PlayerCount = 2
+					PlayerCount = _toggleGroup.Index + 2
 					//ObjectProvider = _runnerInstance.GetComponent<NetworkObjectPoolDefault>(),
 				};
 

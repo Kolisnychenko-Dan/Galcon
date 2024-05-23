@@ -375,8 +375,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a3e32d59a5e4c918cc72866aefe9945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _planet:
-    RawGuidValue: 87863a2a212f3bf4b98980f3f240802d
+  _maps:
+  - RawGuidValue: 87863a2a212f3bf4b98980f3f240802d
+  - RawGuidValue: 38d9a4b04739b7c45bc3103e26dce82b
+  - RawGuidValue: 1612cec6931f7d44085a49468ba0f5a9
 --- !u!114 &1407664975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,9 +397,9 @@ MonoBehaviour:
   - OwnerId: 1
     ShipPrefab: {fileID: 2362917727463820295, guid: 612573fa6a36ea64daf78be2400374ad, type: 3}
   - OwnerId: 2
-    ShipPrefab: {fileID: 0}
+    ShipPrefab: {fileID: 2362917727463820295, guid: 79576cdea8edf394bbb32a3883c6f291, type: 3}
   - OwnerId: 3
-    ShipPrefab: {fileID: 0}
+    ShipPrefab: {fileID: 2362917727463820295, guid: 22d6eac7b647098439198e2cebfe3f4a, type: 3}
 --- !u!1 &1464792248
 GameObject:
   m_ObjectHideFlags: 0

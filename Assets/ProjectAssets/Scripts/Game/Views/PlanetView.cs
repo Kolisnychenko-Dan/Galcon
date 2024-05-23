@@ -76,6 +76,7 @@ namespace Game.Views
 		private void ShowStartPlanetHighlighter()
 		{
 			_startPlanetHighlighter.gameObject.SetActive(true);
+			_startPlanetHighlighter.GetComponent<SpriteRenderer>().color = Constants.PlayerIdToColorMap[_planet.OwnerId];
 			
 			_startPlanetHighlighter.transform.DORotate(new Vector3(0f, 0f, -180f), 3, RotateMode.FastBeyond360)
 				.SetEase(Ease.Linear)

@@ -5,7 +5,7 @@ namespace Game.Abstractions
 {
 	public interface IMapSpawnerService
 	{
-		void SpawnPlanets(int playerCount);
+		void SpawnMap(int playerCount);
 		IReactiveProperty<IReadOnlyList<Planet>> Planets { get; }
 	}
 }
